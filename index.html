@@ -259,7 +259,7 @@
       return;
     }
     Promise.all([
-      api('Restaurants', "AND({Statut}='Confirmé',LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE({Nom Restaurant},' ','-'),'é','e'),'è','e'),'ê','e'),'à','a'),'â','a'),'ô','o'),'û','u'),'ç','c'))='"+slug.toLowerCase()+"')"),
+      api('Restaurants', "AND({Statut}='Confirmé',LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE({Nom Restaurant},' ','-'),'é','e'),'è','e'),'ê','e'),'à','a'),'â','a'),'ô','o'),'û','u'),'ç','c'),'ø','o'),'æ','ae'),'å','a'))='"+slug.toLowerCase()+"')"),
       api('Services',"{Couverts restants} > 0")
     ]).then(function(results){
       var restaurants=results[0], services=results[1];
