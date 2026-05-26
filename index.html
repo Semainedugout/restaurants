@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -163,9 +163,9 @@
   }
 
   function api(table, formula) {
-    var url = 'https://api.airtable.com/v0/'+BASE+'/'+encodeURIComponent(table)+'?pageSize=100';
-    if(formula) url += '&filterByFormula='+encodeURIComponent(formula);
-    return fetch(url,{headers:{Authorization:'Bearer '+TOKEN}}).then(function(r){return r.json();}).then(function(d){return d.records||[];});
+    var url = '/.netlify/functions/airtable?table='+encodeURIComponent(table);
+    if(formula) url += '&formula='+encodeURIComponent(formula);
+    return fetch(url).then(function(r){return r.json();}).then(function(d){return d.records||[];});
   }
 
   function getSponsors(canton) {
