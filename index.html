@@ -60,6 +60,9 @@
 
   .bj-sponsors { border-top: 1px solid #e8e4dc; padding-top: 1rem; margin-top: 0.5rem; }
   .bj-sponsors-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; font-family: Arial, sans-serif; }
+  .bj-programme { text-align: center; padding: 1rem 0 1.5rem; font-family: Arial, sans-serif; font-size: 15px; }
+  .bj-programme a { color: #C41E3A; font-weight: 700; text-decoration: none; }
+  .bj-programme a:hover { text-decoration: underline; }
   .bj-sponsors-logos { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .bj-sponsors-logos img { height: 100px; width: auto; object-fit: contain; }
 </style>
@@ -117,7 +120,10 @@
       or: 'ou',
       tagline: 'Le {name} offre aux jeunes de 16-25 ans un menu gastronomique de quatre plats, accompagné {wines}, pour CHF 60.-.',
       wines_generic: 'des vins de la région',
-      wines_specific: 'des vins de {desc}'
+      wines_specific: 'des vins de {desc}',
+      programme: 'Envie de découvrir plus ?',
+      programme_link: 'Consultez le programme complet de la Semaine du Goût !',
+      programme_url: 'https://www.gout.ch/programme/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     },
     DE: {
       back: '← Zurück zur Restaurantliste',
@@ -142,7 +148,10 @@
       contact_phone: 'Telefon',
       contact_both: 'E-Mail oder Telefon',
       reservation_contact: 'Reservation:',
-      or: 'oder'
+      or: 'oder',
+      programme: 'Lust auf mehr?',
+      programme_link: 'Entdecken Sie das vollständige Programm der Genusswoche!',
+      programme_url: 'https://www.gout.ch/de/programme/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     },
     IT: {
       back: '← Torna alla lista dei ristoranti',
@@ -167,7 +176,10 @@
       contact_phone: 'Telefono',
       contact_both: 'E-mail o telefono',
       reservation_contact: 'Prenotazione:',
-      or: 'o'
+      or: 'o',
+      programme: 'Volete scoprire di più?',
+      programme_link: 'Consultate il programma completo della Settimana del Gusto!',
+      programme_url: 'https://www.gout.ch/it/programma/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     }
   };
 
@@ -264,6 +276,7 @@
         '<p class="bj-annulation">'+T.annulation+'</p>'+
         '<p class="bj-validity">'+T.validity+'</p>'+
       '</div>'+
+      '<div class="bj-programme">'+T.programme+' <a href="'+T.programme_url+'" target="_blank">'+T.programme_link+'</a></div>'+
       '<div class="bj-sponsors">'+
         '<div class="bj-sponsors-label">'+T.sponsors+'</div>'+
         '<div class="bj-sponsors-logos">'+sponsorLogos+'</div>'+
