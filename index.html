@@ -252,6 +252,15 @@
       '</div>';
   }
 
+  function toSlug(name) {
+    return name.toLowerCase()
+      .replace(/[àâä]/g,'a').replace(/[æ]/g,'ae').replace(/[åã]/g,'a')
+      .replace(/[éèêë]/g,'e').replace(/[îï]/g,'i')
+      .replace(/[ôöø]/g,'o').replace(/[œ]/g,'oe')
+      .replace(/[ùûü]/g,'u').replace(/[ç]/g,'c').replace(/[ñ]/g,'n')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  }
+
   function init() {
     var slug = getParam('r');
     if(!slug){
@@ -259,15 +268,18 @@
       return;
     }
     Promise.all([
-      api('Restaurants', "AND({Statut}='Confirmé',LOWER(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE({Nom Restaurant},' ','-'),'é','e'),'è','e'),'ê','e'),'à','a'),'â','a'),'ô','o'),'û','u'),'ç','c'),'ø','o'),'æ','ae'),'å','a'))='"+slug.toLowerCase()+"')"),
+      api('Restaurants', "{Statut}='Confirmé'"),
       api('Services',"{Couverts restants} > 0")
     ]).then(function(results){
       var restaurants=results[0], services=results[1];
-      if(!restaurants.length){
+      var matched=restaurants.filter(function(r){
+        return toSlug(r.fields['Nom Restaurant']||'')===slug.toLowerCase();
+      });
+      if(!matched.length){
         document.getElementById('bj-fiche').innerHTML='<div class="bj-error">Restaurant introuvable.</div>';
         return;
       }
-      var r=restaurants[0];
+      var r=matched[0];
       var langField=r.fields['Langue'];
       var lang=Array.isArray(langField)?langField[0]:(langField||'FR');
       if(lang==='Français')lang='FR';
