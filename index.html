@@ -7,7 +7,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Georgia, 'Times New Roman', serif; background: #faf9f7; color: #1a1a1a; line-height: 1.6; }
-  .bj-header-img { width: 100%; max-height: 300px; object-fit: cover; object-position: center 40%; display: block; }
+  .bj-header-img { width: 100%; max-height: 350px; object-fit: contain; display: block; background: #f5f4f0; }
   .wrap { max-width: 820px; margin: 0 auto; padding: 2rem 1.5rem; }
   .bj-tagline { font-size: 15px; color: #333; margin-bottom: 1rem; font-family: Arial, sans-serif; line-height: 1.6; }
   .bj-warning { color: #C41E3A; font-weight: 700; }
@@ -65,7 +65,7 @@
 </style>
 </head>
 <body>
-<img src="https://www.gout.ch/wp-content/uploads/2021/03/SDG_2021_BonJeunes_Bandeau_FR_1920x1050-2560x1400.jpg" alt="Gastronomie pour les jeunes - La Semaine du Goût" class="bj-header-img">
+<img id="bj-header" src="https://www.gout.ch/wp-content/uploads/2026/05/BJ-FR.png" alt="Gastronomie pour les jeunes - La Semaine du Goût" class="bj-header-img">
 <div class="wrap">
   <a href="https://www.gout.ch/bons-jeunes/" class="bj-back">← Retour à la liste des restaurants</a>
   <div id="bj-fiche"><div class="bj-loading">Chargement du restaurant…</div></div>
@@ -77,13 +77,13 @@
   var BASE = 'appspqjIM0kHmnXQr';
 
   var SPONSORS = {
-    default: [{src:'https://www.gout.ch/wp-content/uploads/2024/11/logo-sw-150x150.webp', alt:'Swiss Wine'}],
-    VD: [{src:'https://www.gout.ch/wp-content/uploads/2017/03/vins-vaudois.png',alt:'OVV'},{src:'https://www.gout.ch/wp-content/uploads/2017/06/Logo_SiL_SansBaseline-3.png',alt:'SIL'}],
-    GE: [{src:'https://www.gout.ch/wp-content/uploads/2022/05/SDG_Bons-Jeunes_logo_GE.png',alt:'Swiss Wine Genève & SIG'}],
-    VS: [{src:'https://www.gout.ch/wp-content/uploads/2024/06/IVV-logo.png',alt:'IVV Valais'}],
-    NE: [{src:'https://www.gout.ch/wp-content/uploads/2017/03/Neuch%C3%A2tel-vins-terroir.png',alt:'Neuchâtel Vins & Terroir'}],
-    FR: [{src:'https://www.gout.ch/wp-content/uploads/2017/03/logo-vignerons-vully-RVB.jpg',alt:'Vignerons du Vully'}],
-    TI: [{src:'https://www.gout.ch/wp-content/uploads/2017/03/Ticinowine.png',alt:'Ticinowine'}]
+    VD: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-VD-1.png',alt:'Partenaires VD'}],
+    VS: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-VS-1.png',alt:'Partenaires VS'}],
+    GE: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-GE-1.png',alt:'Partenaires GE'}],
+    TI: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-TI-1.png',alt:'Partenaires TI'}],
+    FR: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-FR-1.png',alt:'Partenaires FR'}],
+    NE: [{src:'https://www.gout.ch/wp-content/uploads/2026/05/Partenaires-NE-1.png',alt:'Partenaires NE'}],
+    default: [{src:'https://www.gout.ch/wp-content/uploads/2024/11/logo-sw-150x150.webp',alt:'Swiss Wine'}]
   };
 
   var DAYS_FR = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
@@ -98,11 +98,11 @@
       commander: 'Commander mon bon →',
       instructions_title: 'Comment commander ?',
       instructions: [
-        'Notez la date et le service souhaité ci-dessus.',
+        'Notez la date et le service souhaité ci-dessus afin de remplir le formulaire.',
         'Cliquez sur "Commander mon bon" et remplissez le formulaire.',
-        '⚠️ Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.',
-        'Vous recevrez un e-mail de confirmation qui vaut bon. Présentez-le au restaurant.',
-        'Réservez directement auprès du restaurant après réception de votre bon.',
+        '<b style="color:#C41E3A">⚠️ Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.</b>',
+        'Vous recevrez un e-mail de confirmation qui fait guise de bon. Ce mail de confirmation peut vous être demandé lors de votre venue au restaurant.',
+        '<b style="color:#C41E3A">Réservez directement auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
         'Payez CHF 60.- sur place. Minérales et cafés non compris.'
       ],
       annulation: '⚠️ En cas d\'empêchement, merci de prévenir le restaurateur et de nous écrire à secretariat@gout.ch afin qu\'un·e autre jeune puisse profiter de cette offre.',
@@ -183,10 +183,8 @@
   }
 
   function getSponsors(canton) {
-    var list = (SPONSORS[canton]||[]).concat(SPONSORS.default);
-    var seen={}, out=[];
-    list.forEach(function(s){if(!seen[s.src]){seen[s.src]=1;out.push(s);}});
-    return out;
+    if(SPONSORS[canton]) return SPONSORS[canton];
+    return SPONSORS.default;
   }
 
   function formatContact(f, T) {
@@ -239,6 +237,9 @@
     document.querySelector('.bj-back').textContent = T.back;
     document.querySelector('.bj-back').href = T.back_url;
     document.title = name+' — Bons Jeunes 2026';
+    var headerImgs = {FR:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-FR.png',DE:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-DE.png',IT:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-IT.png'};
+    var hdr = document.getElementById('bj-header');
+    if(hdr && headerImgs[lang]) hdr.src = headerImgs[lang];
 
     var wineText = desc ? T.wines_specific.replace('{desc}', desc) : T.wines_generic;
     var tagline = T.tagline.replace('{name}', name).replace('{wines}', wineText);
