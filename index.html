@@ -100,12 +100,12 @@
       instructions: [
         'Notez la date et le service souhaité ci-dessus afin de remplir le formulaire.',
         'Cliquez sur "Commander mon bon" et remplissez le formulaire.',
-        '<b style="color:#C41E3A">⚠️ Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.</b>',
+        '<b>Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.</b>',
         'Vous recevrez un e-mail de confirmation qui fait guise de bon. Ce mail de confirmation peut vous être demandé lors de votre venue au restaurant.',
-        '<b style="color:#C41E3A">Réservez directement auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
+        '<b>Réservez directement auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
         'Payez CHF 60.- sur place. Minérales et cafés non compris.'
       ],
-      annulation: '⚠️ En cas d\'empêchement, merci de prévenir le restaurateur et de nous écrire à secretariat@gout.ch afin qu\'un·e autre jeune puisse profiter de cette offre.',
+      annulation: '<b style="color:#C41E3A">⚠️ En cas d\'empêchement, merci de prévenir le restaurateur et de nous écrire à secretariat@gout.ch afin qu\'un·e autre jeune puisse profiter de cette offre.</b>',
       validity: 'Les bons sont valables uniquement durant la Semaine du Goût du 17 au 27 septembre 2026.',
       sponsors: 'Avec le soutien de',
       places: function(n){return n===1?'1 bon':n+' bons';},
@@ -183,8 +183,7 @@
   }
 
   function getSponsors(canton) {
-    if(SPONSORS[canton]) return SPONSORS[canton];
-    return SPONSORS.default;
+    return SPONSORS[canton] || SPONSORS.default;
   }
 
   function formatContact(f, T) {
