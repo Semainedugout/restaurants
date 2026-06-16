@@ -50,6 +50,8 @@
 
   .bj-btn { display: block; width: 100%; background: #C41E3A; color: white; text-align: center; padding: 13px; border-radius: 4px; font-size: 15px; font-weight: 700; text-decoration: none; margin-top: 14px; font-family: Arial, sans-serif; letter-spacing: 0.02em; }
   .bj-btn:hover { background: #8B1428; }
+  .bj-btn-programme { display: block; width: 100%; background: #1a1a1a; color: white; text-align: center; padding: 13px; border-radius: 4px; font-size: 15px; font-weight: 700; text-decoration: none; margin-top: 10px; font-family: Arial, sans-serif; letter-spacing: 0.02em; }
+  .bj-btn-programme:hover { background: #333; }
 
   .bj-info { background: #f5f4f0; border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 14px; font-family: Arial, sans-serif; }
   .bj-info h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 8px; }
@@ -60,9 +62,10 @@
 
   .bj-sponsors { border-top: 1px solid #e8e4dc; padding-top: 1rem; margin-top: 0.5rem; }
   .bj-sponsors-label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px; font-family: Arial, sans-serif; }
-  .bj-programme { text-align: center; padding: 1rem 0 1.5rem; font-family: Arial, sans-serif; font-size: 15px; }
+  .bj-programme { text-align: center; padding: 1rem 0 0.5rem; font-family: Arial, sans-serif; font-size: 15px; }
   .bj-programme a { color: #C41E3A; font-weight: 700; text-decoration: none; }
   .bj-programme a:hover { text-decoration: underline; }
+  .bj-programme-btn-wrap { padding: 0 0 1.5rem; }
   .bj-sponsors-logos { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .bj-sponsors-logos img { height: 100px; width: auto; object-fit: contain; }
 </style>
@@ -70,13 +73,12 @@
 <body>
 <img id="bj-header" src="https://www.gout.ch/wp-content/uploads/2026/05/BJ-FR.png" alt="Gastronomie pour les jeunes - La Semaine du Goût" class="bj-header-img">
 <div class="wrap">
-  <a href="https://www.gout.ch/bons-jeunes/" class="bj-back">← Retour à la liste des restaurants</a>
+  <a href="https://www.gout.ch/bons-jeunes/" class="bj-back" target="_blank">← Retour à la liste des restaurants</a>
   <div id="bj-fiche"><div class="bj-loading">Chargement du restaurant…</div></div>
 </div>
 
 <script>
 (function() {
-  var TOKEN = 'patFSXYxZ5KIh5wbc.211195579f2105e4d6ff1b52ac35f05a0816fb4279950fb72db12aa504ba05fc';
   var BASE = 'appspqjIM0kHmnXQr';
 
   var SPONSORS = {
@@ -101,11 +103,11 @@
       commander: 'Commander mon bon →',
       instructions_title: 'Comment commander ?',
       instructions: [
-        'Notez la date et le service souhaité ci-dessus afin de remplir le formulaire.',
+        'Mémorisez la date et le service souhaité ci-dessus afin de remplir le formulaire.',
         'Cliquez sur "Commander mon bon" et remplissez le formulaire.',
         '<b>Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.</b>',
-        'Vous recevrez un e-mail de confirmation qui fait guise de bon. Ce mail de confirmation peut vous être demandé lors de votre venue au restaurant.',
-        '<b>Réservez directement auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
+        'Vous recevrez un e-mail de confirmation qui fait office de bon. Ce mail de confirmation peut vous être demandé lors de votre venue au restaurant. S\'il n\'y a plus de place disponible, vous recevrez un mail d\'erreur.',
+        '<b>Effectuez directement votre réservation auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
         'Payez CHF 60.- sur place. Minérales et cafés non compris.'
       ],
       annulation: '<b style="color:#C41E3A">⚠️ En cas d\'empêchement, merci de prévenir le restaurateur et de nous écrire à secretariat@gout.ch afin qu\'un·e autre jeune puisse profiter de cette offre.</b>',
@@ -121,8 +123,8 @@
       tagline: 'Le {name} offre aux jeunes de 16-25 ans un menu gastronomique de quatre plats, accompagné {wines}, pour CHF 60.-.',
       wines_generic: 'des vins de la région',
       wines_specific: 'des vins de {desc}',
-      programme: 'Envie de découvrir plus ?',
-      programme_link: 'Consultez le programme complet de la Semaine du Goût !',
+      programme: 'Envie de découvrir plus ? Consultez le programme complet de la Semaine du Goût !',
+      programme_btn: 'Découvrir le programme →',
       programme_url: 'https://www.gout.ch/programme/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     },
     DE: {
@@ -132,14 +134,14 @@
       commander: 'Gutschein bestellen →',
       instructions_title: 'Wie bestellen?',
       instructions: [
-        'Notieren Sie das gewünschte Datum und den Service oben.',
+        'Merken Sie sich das gewünschte Datum und den Service oben, um das Formular auszufüllen.',
         'Klicken Sie auf "Gutschein bestellen" und füllen Sie das Formular aus.',
-        '⚠️ Im Formular werden alle Services angezeigt — wählen Sie nur einen Service, den dieses Restaurant anbietet.',
-        'Sie erhalten eine Bestätigungs-E-Mail, die als Gutschein gilt.',
-        'Reservieren Sie direkt im Restaurant nach Erhalt Ihres Gutscheins.',
+        '<b>Im Formular werden alle Services angezeigt — wählen Sie nur einen Service, den dieses Restaurant anbietet.</b>',
+        'Sie erhalten eine Bestätigungs-E-Mail, die als Gutschein gilt. Diese E-Mail kann beim Besuch im Restaurant verlangt werden. Falls kein Platz mehr verfügbar ist, erhalten Sie eine Fehler-E-Mail.',
+        '<b>Reservieren Sie direkt im Restaurant nach Erhalt Ihres Gutscheins. Bitte geben Sie an, dass die Reservation im Rahmen eines Bon Jeunes erfolgt.</b>',
         'Bezahlen Sie CHF 60.- direkt im Restaurant. Mineralwasser und Kaffee nicht inbegriffen.'
       ],
-      annulation: '⚠️ Bei Verhinderung bitten wir Sie, das Restaurant zu informieren und uns unter secretariat@gout.ch zu schreiben.',
+      annulation: '<b style="color:#C41E3A">⚠️ Bei Verhinderung bitten wir Sie, das Restaurant zu informieren und uns unter secretariat@gout.ch zu schreiben, damit ein anderer junger Mensch von diesem Angebot profitieren kann.</b>',
       validity: 'Die Gutscheine sind nur während der Genusswoche vom 17. bis 27. September 2026 gültig.',
       sponsors: 'Mit der Unterstützung von',
       places: function(n){return n===1?'1 Gutschein':n+' Gutscheine';},
@@ -149,8 +151,11 @@
       contact_both: 'E-Mail oder Telefon',
       reservation_contact: 'Reservation:',
       or: 'oder',
-      programme: 'Lust auf mehr?',
-      programme_link: 'Entdecken Sie das vollständige Programm der Genusswoche!',
+      tagline: '{name} bietet jungen Menschen von 16–25 Jahren ein gastronomisches Vier-Gang-Menü mit {wines} für CHF 60.- an.',
+      wines_generic: 'regionalen Weinen',
+      wines_specific: 'Weinen von {desc}',
+      programme: 'Lust auf mehr? Entdecken Sie das vollständige Programm der Genusswoche!',
+      programme_btn: 'Programm entdecken →',
       programme_url: 'https://www.gout.ch/de/programme/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     },
     IT: {
@@ -160,14 +165,14 @@
       commander: 'Ordinare il mio buono →',
       instructions_title: 'Come ordinare?',
       instructions: [
-        'Annotate la data e il servizio desiderato qui sopra.',
+        'Memorizzate la data e il servizio desiderato qui sopra per compilare il modulo.',
         'Cliccate su "Ordinare il mio buono" e compilate il modulo.',
-        '⚠️ Nel modulo vengono visualizzati tutti i servizi — scegliete solo un servizio offerto da questo ristorante.',
-        'Riceverete un\'e-mail di conferma che vale come buono.',
-        'Prenotate direttamente presso il ristorante dopo aver ricevuto il vostro buono.',
+        '<b>Nel modulo vengono visualizzati tutti i servizi — scegliete solo un servizio offerto da questo ristorante.</b>',
+        'Riceverete un\'e-mail di conferma che vale come buono. Questa e-mail può esservi richiesta al momento della vostra visita al ristorante. Se non ci sono più posti disponibili, riceverete un\'e-mail di errore.',
+        '<b>Prenotate direttamente presso il ristorante dopo aver ricevuto il vostro buono. È indispensabile precisare che la prenotazione avviene nell\'ambito di un Bon Jeunes.</b>',
         'Pagate CHF 60.- direttamente al ristoratore. Acqua e caffè non compresi.'
       ],
-      annulation: '⚠️ In caso di impedimento, avvisate il ristoratore e scriveteci a secretariat@gout.ch.',
+      annulation: '<b style="color:#C41E3A">⚠️ In caso di impedimento, avvisate il ristoratore e scriveteci a secretariat@gout.ch affinché un altro giovane possa approfittare di questa offerta.</b>',
       validity: 'I buoni sono validi esclusivamente durante la Settimana del Gusto dal 17 al 27 settembre 2026.',
       sponsors: 'Con il sostegno di',
       places: function(n){return n===1?'1 buono':n+' buoni';},
@@ -177,8 +182,11 @@
       contact_both: 'E-mail o telefono',
       reservation_contact: 'Prenotazione:',
       or: 'o',
-      programme: 'Volete scoprire di più?',
-      programme_link: 'Consultate il programma completo della Settimana del Gusto!',
+      tagline: '{name} offre ai giovani dai 16 ai 25 anni un menu gastronomico di quattro portate, accompagnato {wines}, per CHF 60.-.',
+      wines_generic: 'dai vini della regione',
+      wines_specific: 'dai vini di {desc}',
+      programme: 'Volete scoprire di più? Consultate il programma completo della Settimana del Gusto!',
+      programme_btn: 'Scoprire il programma →',
       programme_url: 'https://www.gout.ch/it/programma/?utm_source=page+restaurant&utm_medium=link&utm_campaign=programme&utm_id=BJ'
     }
   };
@@ -217,10 +225,19 @@
     var T = TEXTS[lang];
     var canton = Array.isArray(f['Canton'])?f['Canton'][0]:(f['Canton']||'');
     var name = f['Nom Restaurant']||'';
-    var address = (f['Adresse']||'')+(f['NPA']?' '+f['NPA']:'')+((f['Adresse']||f['NPA'])&&f['Ville']?', ':'')+( f['Ville']||'');
+
+    // Adresse format : Rue numéro — NPA Ville
+    var adresse = f['Adresse']||'';
+    var npa = f['NPA']||'';
+    var ville = f['Ville']||'';
+    var addressParts = [];
+    if(adresse) addressParts.push(adresse);
+    if(npa || ville) addressParts.push((npa+(npa&&ville?' ':'')+ville).trim());
+    var address = addressParts.join(' — ');
+
     var desc = f['Description']||'';
     var contact = formatContact(f, T);
-    var mapSrc = 'https://maps.google.com/maps?q='+encodeURIComponent(address)+'&output=embed&z=15';
+    var mapSrc = 'https://maps.google.com/maps?q='+encodeURIComponent(adresse+' '+npa+' '+ville)+'&output=embed&z=15';
 
     var serviceRows = services.sort(function(a,b){return new Date(a.fields['Date'])-new Date(b.fields['Date']);}).map(function(s){
       var sf = s.fields;
@@ -245,8 +262,12 @@
     var sponsorLogos = getSponsors(canton).map(function(s){return '<img src="'+s.src+'" alt="'+s.alt+'" onerror="this.style.display=\'none\'">';}).join('');
     var instructionItems = T.instructions.map(function(i){return '<li>'+i+'</li>';}).join('');
 
-    document.querySelector('.bj-back').textContent = T.back;
-    document.querySelector('.bj-back').href = T.back_url;
+    // Mettre à jour le lien retour (nouvel onglet géré via target="_blank" dans le HTML + ici)
+    var backEl = document.querySelector('.bj-back');
+    backEl.textContent = T.back;
+    backEl.href = T.back_url;
+    backEl.target = '_blank';
+
     document.title = name+' — Bons Jeunes 2026';
     var headerImgs = {FR:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-FR.png',DE:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-DE.png',IT:'https://www.gout.ch/wp-content/uploads/2026/05/BJ-IT.png'};
     var hdr = document.getElementById('bj-header');
@@ -276,7 +297,10 @@
         '<p class="bj-annulation">'+T.annulation+'</p>'+
         '<p class="bj-validity">'+T.validity+'</p>'+
       '</div>'+
-      '<div class="bj-programme">'+T.programme+' <a href="'+T.programme_url+'" target="_blank">'+T.programme_link+'</a></div>'+
+      '<div class="bj-programme">'+T.programme+'</div>'+
+      '<div class="bj-programme-btn-wrap">'+
+        '<a href="'+T.programme_url+'" class="bj-btn-programme" target="_blank">'+T.programme_btn+'</a>'+
+      '</div>'+
       '<div class="bj-sponsors">'+
         '<div class="bj-sponsors-label">'+T.sponsors+'</div>'+
         '<div class="bj-sponsors-logos">'+sponsorLogos+'</div>'+
