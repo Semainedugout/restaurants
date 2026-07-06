@@ -258,7 +258,8 @@
         '</div>';
     }).join('');
 
-    var tallyUrl = 'https://tally.so/r/KYJp5X?Choisissez+votre+restaurant='+encodeURIComponent(name);
+    var tallyForms = {FR:'https://tally.so/r/KYJp5X',DE:'https://tally.so/r/lb5VXX',IT:'https://tally.so/r/NpgxzO'};
+    var tallyUrl = (tallyForms[lang]||tallyForms.FR)+'?Choisissez+votre+restaurant='+encodeURIComponent(name);
     var sponsorLogos = getSponsors(canton).map(function(s){return '<img src="'+s.src+'" alt="'+s.alt+'" onerror="this.style.display=\'none\'">';}).join('');
     var instructionItems = T.instructions.map(function(i){return '<li>'+i+'</li>';}).join('');
 
