@@ -281,7 +281,7 @@
     if(hdr && headerImgs[lang]) hdr.src = headerImgs[lang];
 
     var wineText = desc ? T.wines_specific.replace('{desc}', desc) : T.wines_generic;
-    var nameLinked = website ? '<a href="'+website+'" target="_blank" style="color:inherit;text-decoration:underline;">'+name+'</a>' : name;
+    var nameLinked = website ? '<a href="'+website+'" target="_blank" style="color:#C41E3A;text-decoration:none;">'+name+'</a>' : name;
     var tagline = T.tagline.replace('{name}', nameLinked).replace('{wines}', wineText);
 
     document.getElementById('bj-fiche').innerHTML =
