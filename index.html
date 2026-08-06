@@ -282,10 +282,11 @@
 
     var wineText = desc ? T.wines_specific.replace('{desc}', desc) : T.wines_generic;
     var tagline = T.tagline.replace('{name}', name).replace('{wines}', wineText);
+    if(website) tagline += ' <a href="'+website+'" target="_blank" style="color:#C41E3A;font-weight:700;font-family:Arial,sans-serif;font-size:14px;">'+(lang==='DE'?'Website':lang==='IT'?'Sito web':'Site web')+'</a>';
 
     document.getElementById('bj-fiche').innerHTML =
       '<span class="bj-canton">'+canton+'</span>'+
-      '<div class="bj-name">'+(website?'<a href="'+website+'" target="_blank" style="color:#1a1a1a;text-decoration:none;">'+name+'</a>':name)+'</div>'+
+      '<div class="bj-name">'+name+'</div>'+
       '<div class="bj-tagline">'+tagline+'</div>'+
       '<div class="bj-meta">📍 '+address+'</div>'+(contact?'<div class="bj-meta" style="margin-top:4px">'+contact+'</div>':'')+
       '<hr>'+
