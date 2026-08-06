@@ -107,7 +107,7 @@
         'Cliquez sur "Commander mon bon" et remplissez le formulaire.',
         '<b>Dans le formulaire, tous les services s\'affichent — choisissez uniquement un service proposé par ce restaurant.</b>',
         'Vous recevrez un e-mail de confirmation qui fait office de bon. Ce mail de confirmation peut vous être demandé lors de votre venue au restaurant. S\'il n\'y a plus de place disponible, vous recevrez un mail d\'erreur.',
-        '<b>Effectuez directement votre réservation auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes.</b>',
+        '<b>Effectuez directement votre réservation auprès du restaurant après réception de votre bon. Il est indispensable de préciser qu\'elle s\'effectue dans le cadre d\'un Bon Jeunes. Signalez également tout régime particulier ou allergie.</b>',
         'Payez CHF 60.- sur place. Minérales et cafés non compris.'
       ],
       annulation: '<b style="color:#C41E3A">⚠️ En cas d\'empêchement, merci de prévenir le restaurateur et de nous écrire à secretariat@gout.ch afin qu\'un·e autre jeune puisse profiter de cette offre.</b>',
@@ -138,7 +138,7 @@
         'Klicken Sie auf "Gutschein bestellen" und füllen Sie das Formular aus.',
         '<b>Im Formular werden alle Services angezeigt — wählen Sie nur einen Service, den dieses Restaurant anbietet.</b>',
         'Sie erhalten eine Bestätigungs-E-Mail, die als Gutschein gilt. Diese E-Mail kann beim Besuch im Restaurant verlangt werden. Falls kein Platz mehr verfügbar ist, erhalten Sie eine Fehler-E-Mail.',
-        '<b>Reservieren Sie direkt im Restaurant nach Erhalt Ihres Gutscheins. Bitte geben Sie an, dass die Reservation im Rahmen eines Bon Jeunes erfolgt.</b>',
+        '<b>Reservieren Sie direkt im Restaurant nach Erhalt Ihres Gutscheins. Bitte geben Sie an, dass die Reservation im Rahmen eines Bon Jeunes erfolgt. Teilen Sie dabei auch besondere Ernährungsanforderungen oder Allergien mit.</b>',
         'Bezahlen Sie CHF 60.- direkt im Restaurant. Mineralwasser und Kaffee nicht inbegriffen.'
       ],
       annulation: '<b style="color:#C41E3A">⚠️ Bei Verhinderung bitten wir Sie, das Restaurant zu informieren und uns unter secretariat@gout.ch zu schreiben, damit ein anderer junger Mensch von diesem Angebot profitieren kann.</b>',
@@ -169,7 +169,7 @@
         'Cliccate su "Ordinare il mio buono" e compilate il modulo.',
         '<b>Nel modulo vengono visualizzati tutti i servizi — scegliete solo un servizio offerto da questo ristorante.</b>',
         'Riceverete un\'e-mail di conferma che vale come buono. Questa e-mail può esservi richiesta al momento della vostra visita al ristorante. Se non ci sono più posti disponibili, riceverete un\'e-mail di errore.',
-        '<b>Prenotate direttamente presso il ristorante dopo aver ricevuto il vostro buono. È indispensabile precisare che la prenotazione avviene nell\'ambito di un Bon Jeunes.</b>',
+        '<b>Prenotate direttamente presso il ristorante dopo aver ricevuto il vostro buono. È indispensabile precisare che la prenotazione avviene nell\'ambito di un Bon Jeunes. Segnali inoltre eventuali esigenze alimentari particolari o allergie.</b>',
         'Pagate CHF 60.- direttamente al ristoratore. Acqua e caffè non compresi.'
       ],
       annulation: '<b style="color:#C41E3A">⚠️ In caso di impedimento, avvisate il ristoratore e scriveteci a secretariat@gout.ch affinché un altro giovane possa approfittare di questa offerta.</b>',
@@ -236,10 +236,16 @@
     var address = addressParts.join(' — ');
 
     var desc = f['Description']||'';
+    var website = f['Site web']||'';
     var contact = formatContact(f, T);
     var mapSrc = 'https://maps.google.com/maps?q='+encodeURIComponent(adresse+' '+npa+' '+ville)+'&output=embed&z=15';
 
-    var serviceRows = services.sort(function(a,b){return new Date(a.fields['Date'])-new Date(b.fields['Date']);}).map(function(s){
+    var serviceRows = services.sort(function(a,b){
+      var dateA = new Date(a.fields['Date']), dateB = new Date(b.fields['Date']);
+      if(dateA - dateB !== 0) return dateA - dateB;
+      var order = {'Midi':0,'Soir':1};
+      return (order[a.fields['Service']]||0) - (order[b.fields['Service']]||0);
+    }).map(function(s){
       var sf = s.fields;
       var type = sf['Service']||'';
       var places = sf['Couverts restants']||0;
@@ -279,7 +285,7 @@
 
     document.getElementById('bj-fiche').innerHTML =
       '<span class="bj-canton">'+canton+'</span>'+
-      '<div class="bj-name">'+name+'</div>'+
+      '<div class="bj-name">'+(website?'<a href="'+website+'" target="_blank" style="color:#1a1a1a;text-decoration:none;">'+name+'</a>':name)+'</div>'+
       '<div class="bj-tagline">'+tagline+'</div>'+
       '<div class="bj-meta">📍 '+address+'</div>'+(contact?'<div class="bj-meta" style="margin-top:4px">'+contact+'</div>':'')+
       '<hr>'+
