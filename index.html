@@ -320,7 +320,8 @@
       .replace(/[àâä]/g,'a').replace(/[æ]/g,'ae').replace(/[åã]/g,'a')
       .replace(/[éèêë]/g,'e').replace(/[îï]/g,'i')
       .replace(/[ôöø]/g,'o').replace(/[œ]/g,'oe')
-      .replace(/[ùûü]/g,'u').replace(/[ç]/g,'c').replace(/[ñ]/g,'n')
+      .replace(/[ùûü]/g,'u').replace(/[çÇ]/g,'c').replace(/[ñ]/g,'n')
+      .replace(/[''']/g,'-')
       .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   }
 
